@@ -1,22 +1,23 @@
 import express from 'express';
-import { getAllPosts, insertPosts, getPostById,updatePost,deletePostById} from './db.js';  // Importing insertPosts here
+import { getAllPosts, insertPosts, getPostById,updatePost,deletePostById} from './db.js'; 
 
 const app = express();
 
 // Enabling JSON body parser middleware
 app.use(express.json());
 
+//get post function
 app.get('/posts', async (req, res) => {
     const allPosts = await getAllPosts();
     console.log('ALL POSTS', allPosts);
     res.json(allPosts);
 });
 
-// Adding a new route for inserting a post
+// adding a post function
 app.post('/posts', async (req, res) => {
     const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
 
-    // Validar que todos los campos estén presentes y no estén vacíos
+    
     if (!title || !content || !featuredTeam || !featuredPlayer || !relatedMatch || !tactics || !highlightedEvent || !banner) {
         return res.status(400).json({ error: 'Wrong format. Use the correct format.' });
     }
@@ -31,7 +32,7 @@ app.post('/posts', async (req, res) => {
 
 
 
-// ROute for getting posts by ID
+// getting post by id function
 app.get('/posts/:postId', async (req, res) => {
     try {
         const postId = parseInt(req.params.postId); 
@@ -49,12 +50,12 @@ app.get('/posts/:postId', async (req, res) => {
     }
 });
 
-// including the updatePost function 
+// put a post function
 app.put('/posts/:postId', async (req, res) => {
     const { postId } = req.params;
     const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
 
-    // Validar que el postId sea un número y que todos los campos estén presentes
+    
     if (isNaN(parseInt(postId, 10)) || !title || !content || !featuredTeam || !featuredPlayer || !relatedMatch || !tactics || !highlightedEvent || !banner) {
         return res.status(400).json({ error: 'Wrong format. Use the correct format.' });
     }
@@ -71,8 +72,7 @@ app.put('/posts/:postId', async (req, res) => {
     }
 });
 
-
-// In your main file, add this after your other endpoints
+//delete a post
 app.delete('/posts/:postId', async (req, res) => {
     try {
         const postId = parseInt(req.params.postId); 
