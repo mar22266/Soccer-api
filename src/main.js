@@ -91,7 +91,7 @@ app.delete('/posts/:postId', async (req, res) => {
     }
 });
 
-
+//Manejo de errores
 app.use((req, res, next) => {
     const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
     if (!allowedMethods.includes(req.method)) {
