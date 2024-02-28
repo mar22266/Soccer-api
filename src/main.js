@@ -14,15 +14,21 @@ app.get('/posts', async (req, res) => {
 
 // Adding a new route for inserting a post
 app.post('/posts', async (req, res) => {
+    const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
+
+    // Validar que todos los campos estén presentes y no estén vacíos
+    if (!title || !content || !featuredTeam || !featuredPlayer || !relatedMatch || !tactics || !highlightedEvent || !banner) {
+        return res.status(400).json({ error: 'Wrong format. Use the correct format.' });
+    }
+
     try {
-        const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
         const result = await insertPosts(title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner);
-        console.log(result)
         res.status(201).json(result);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 
 // ROute for getting posts by ID
@@ -45,16 +51,16 @@ app.get('/posts/:postId', async (req, res) => {
 
 // including the updatePost function 
 app.put('/posts/:postId', async (req, res) => {
+    const { postId } = req.params;
+    const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
+
+    // Validar que el postId sea un número y que todos los campos estén presentes
+    if (isNaN(parseInt(postId, 10)) || !title || !content || !featuredTeam || !featuredPlayer || !relatedMatch || !tactics || !highlightedEvent || !banner) {
+        return res.status(400).json({ error: 'Wrong format. Use the correct format.' });
+    }
+
     try {
-        const { postId } = req.params;
-        const { title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner } = req.body;
-
-        const id = parseInt(postId, 10);
-        if (isNaN(id)) {
-            return res.status(400).json({ error: 'Invalid post ID' });
-        }
-
-        const result = await updatePost(id, title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner);
+        const result = await updatePost(postId, title, content, featuredTeam, featuredPlayer, relatedMatch, tactics, highlightedEvent, banner);
         if (result.affectedRows > 0) {
             res.status(200).json({ message: 'Post updated successfully' });
         } else {
@@ -64,6 +70,7 @@ app.put('/posts/:postId', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // In your main file, add this after your other endpoints
 app.delete('/posts/:postId', async (req, res) => {
@@ -84,9 +91,19 @@ app.delete('/posts/:postId', async (req, res) => {
     }
 });
 
+
 app.use((req, res, next) => {
+    const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+    if (!allowedMethods.includes(req.method)) {
+        return res.status(501).json({ error: "Método no implementado" });
+    }
+    next();
+});
+
+app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint does not exist' });
 });
+
 
 
 const port = 5000;
