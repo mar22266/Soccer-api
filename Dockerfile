@@ -1,15 +1,18 @@
-FROM ubuntu:latest
-ENV DEBIAN_FRONTEND=noninteractive
+# Use the official MySQL image as the base image
+FROM mysql:latest
 
-RUN apt-get update && \
-apt-get install -y mysql-server
-
+# Set environment variables for MySQL
 ENV MYSQL_DATABASE=soccer_db
+ENV MYSQL_ROOT_PASSWORD=root_password
+# Optionally, define the default user and password (if needed)
 ENV MYSQL_USER=andre
 ENV MYSQL_PASSWORD=root
-ENV MYSQL_ROOT_PASSWORD=root_password
 
-COPY schema.sql /docker-entrypoint-initdb.d/schema.sql
+# Add your schema SQL script to the docker-entrypoint-initdb.d directory
+COPY schema.sql /docker-entrypoint-initdb.d/
+
+# Expose port 3306 to enable communication to/from the server
 EXPOSE 3306
 
-CMD ["mysqld"]
+# When the container starts, MySQL will automatically execute
+# scripts in /docker-entrypoint-initdb.d/ to initialize the database
