@@ -14,7 +14,7 @@ export async function insertPosts(
   tactics,
   highlightedEvent,
   banner,
-) { // Added trailing comma here
+) {
   const sql = `
     INSERT INTO blog_posts 
     (title, content, featured_team, featured_player, related_match, tactics, highlighted_event, banner) 
@@ -48,7 +48,7 @@ export async function updatePost(
   tactics,
   highlightedEvent,
   banner,
-) { // Added trailing comma here
+) {
   const sql = `
     UPDATE blog_posts 
     SET title = ?, content = ?, featured_team = ?, featured_player = ?, related_match = ?, tactics = ?, highlighted_event = ?, banner = ? 
