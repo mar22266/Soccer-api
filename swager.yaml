@@ -1,0 +1,98 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Blog Posts API
+  description: API for managing blog posts, including CRUD operations.
+host: 'localhost:5000'
+schemes:
+  - http
+basePath: '/'
+produces:
+  - application/json
+paths:
+  /posts:
+    get:
+      summary: Get all posts
+      responses:
+        200:
+          description: An array of blog posts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Post'
+    post:
+      summary: Create a new post
+      parameters:
+        - in: body
+          name: post
+          description: The post to create
+          schema:
+            $ref: '#/definitions/Post'
+      responses:
+        201:
+          description: Successfully created
+  /posts/{postId}:
+    parameters:
+      - in: path
+        name: postId
+        required: true
+        type: integer
+        format: int64
+    get:
+      summary: Get a post by ID
+      responses:
+        200:
+          description: A single blog post
+          schema:
+            $ref: '#/definitions/Post'
+        404:
+          description: Post not found
+    put:
+      summary: Update a post by ID
+      parameters:
+        - in: body
+          name: post
+          description: The post data to update
+          schema:
+            $ref: '#/definitions/Post'
+      responses:
+        200:
+          description: Successfully updated
+        404:
+          description: Post not found
+    delete:
+      summary: Delete a post by ID
+      responses:
+        204:
+          description: Successfully deleted
+        404:
+          description: Post not found
+definitions:
+  Post:
+    type: object
+    required:
+      - title
+      - content
+      - featuredTeam
+      - featuredPlayer
+      - relatedMatch
+      - tactics
+      - highlightedEvent
+      - banner
+    properties:
+      title:
+        type: string
+      content:
+        type: string
+      featuredTeam:
+        type: string
+      featuredPlayer:
+        type: string
+      relatedMatch:
+        type: string
+      tactics:
+        type: string
+      highlightedEvent:
+        type: string
+      banner:
+        type: string
