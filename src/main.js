@@ -51,6 +51,7 @@ app.post('/posts', async (req, res) => {
     || !highlightedEvent
     || !banner
   ) {
+    logError('Missing required fields')
     return res.status(400).json({ error: 'Missing required fields' })
   }
 
@@ -68,6 +69,7 @@ app.post('/posts', async (req, res) => {
     logAPiResponse('POST', '/posts', result)
     return res.status(201).json(result)
   } catch (error) {
+    logError(error)
     return res.status(500).json({ error: error.message })
   }
 })
@@ -84,8 +86,10 @@ app.get('/posts/:postId', async (req, res) => {
       logAPiResponse('GET', '/posts', post)
       return res.status(201).json(post)
     }
+    logError('Post not found')
     return res.status(404).json({ error: 'Post not found' })
   } catch (error) {
+    logError(error)
     return res.status(500).json({ error: error.message })
   }
 })
@@ -115,6 +119,7 @@ app.put('/posts/:postId', async (req, res) => {
     || !highlightedEvent
     || !banner
   ) {
+    logError('Missing required fields or invalid ID')
     return res.status(400).json({ error: 'Missing required fields or invalid ID' })
   }
 
@@ -134,8 +139,10 @@ app.put('/posts/:postId', async (req, res) => {
       logAPiResponse('PUT', `/posts/${postId}`, result)
       return res.status(200).json({ message: 'Post updated successfully' })
     }
+    logError('Post not found')
     return res.status(404).json({ error: 'Post not found' })
   } catch (error) {
+    logError(error)
     return res.status(500).json({ error: error.message })
   }
 })
@@ -144,6 +151,7 @@ app.delete('/posts/:postId', async (req, res) => {
   const postId = parseInt(req.params.postId, 10)
   logAPiRequest('DELETE', `/posts/${postId}`, req.body)
   if (Number.isNaN(postId)) {
+    logError('Invalid post ID')
     return res.status(400).json({ error: 'Invalid post ID' })
   }
   try {
@@ -152,8 +160,10 @@ app.delete('/posts/:postId', async (req, res) => {
       logAPiResponse('DELETE', `/posts/${postId}`, result)
       return res.status(204).send()
     }
+    logError('Post not found')
     return res.status(404).json({ error: 'Post not found' })
   } catch (error) {
+    logError(error)
     return res.status(500).json({ error: error.message })
   }
 })
@@ -161,12 +171,14 @@ app.delete('/posts/:postId', async (req, res) => {
 app.use((req, res, next) => {
   const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE']
   if (!allowedMethods.includes(req.method)) {
+    logError('Method not implemented')
     return res.status(501).json({ error: 'Method not implemented' })
   }
   return next()
 })
 
 app.use((req, res) => {
+  logError('Endpoint does not exist')
   res.status(404).json({ error: 'Endpoint does not exist' })
 })
 

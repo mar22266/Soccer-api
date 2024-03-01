@@ -117,3 +117,36 @@
   warningStatus: 0,
   changedRows: 1
 }
+[REQUEST] 2024-03-01T01:12:45.927Z GET /posts  
+[RESPONSE] 2024-03-01T01:12:45.961Z GET /posts [
+  {
+    id: 2,
+    title: 'deeede',
+    content: 'Remontada histórica',
+    featured_team: 'Bayern',
+    featured_player: 'Lewandowski',
+    related_match: 'Bayern-Chelsea',
+    tactics: '3-5-2',
+    highlighted_event: 'Lewandowski hat-trick',
+    banner: 'noche épica en Munich'
+  }
+]
+[RESPONSE] 2024-03-01T01:12:49.336Z GET /posts/3 
+[RESPONSE] 2024-03-01T01:12:59.427Z GET /posts/3 
+[RESPONSE] 2024-03-01T01:16:01.763Z GET /posts/NaN 
+2024-03-01T01:17:56.576Z Endpoint does not exist
+2024-03-01T01:17:57.774Z Endpoint does not exist
+[RESPONSE] 2024-03-01T01:18:01.667Z GET /posts/2 
+[RESPONSE] 2024-03-01T01:18:01.691Z GET /posts {
+  id: 2,
+  title: 'deeede',
+  content: 'Remontada histórica',
+  featured_team: 'Bayern',
+  featured_player: 'Lewandowski',
+  related_match: 'Bayern-Chelsea',
+  tactics: '3-5-2',
+  highlighted_event: 'Lewandowski hat-trick',
+  banner: 'noche épica en Munich'
+}
+[RESPONSE] 2024-03-01T01:18:03.188Z GET /posts/3 
+2024-03-01T01:18:03.189Z Post not found
