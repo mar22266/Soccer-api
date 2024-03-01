@@ -1,0 +1,119 @@
+[REQUEST] 2024-03-01T00:29:15.811Z GET /posts  
+[RESPONSE] 2024-03-01T00:29:15.834Z GET /posts [
+  {
+    id: 1,
+    title: 'xx',
+    content: 'ed vs LOL',
+    featured_team: 'madirddddd',
+    featured_player: 'CR7',
+    related_match: 'Barca-Madrid',
+    tactics: '4-3-3',
+    highlighted_event: 'NOO gol',
+    banner: 'https://st3.depositphotos.com/9880800/15061/i/450/depositphotos_150617400-stock-photo-soccer-ball-on-grass.jpg'
+  }
+]
+[REQUEST] 2024-03-01T00:31:24.679Z GET /posts  
+[RESPONSE] 2024-03-01T00:31:24.681Z GET /posts [
+  {
+    id: 1,
+    title: 'xx',
+    content: 'ed vs LOL',
+    featured_team: 'madirddddd',
+    featured_player: 'CR7',
+    related_match: 'Barca-Madrid',
+    tactics: '4-3-3',
+    highlighted_event: 'NOO gol',
+    banner: 'https://st3.depositphotos.com/9880800/15061/i/450/depositphotos_150617400-stock-photo-soccer-ball-on-grass.jpg'
+  },
+  {
+    id: 2,
+    title: 'xx',
+    content: 'ed vs LOL',
+    featured_team: 'dededed',
+    featured_player: 'CR7',
+    related_match: 'Barca-Madrid',
+    tactics: '4-3-3',
+    highlighted_event: 'NOO gol',
+    banner: 'https://st3.depositphotos.com/9880800/15061/i/450/depositphotos_150617400-stock-photo-soccer-ball-on-grass.jpg'
+  }
+]
+[REQUEST] 2024-03-01T00:47:22.615Z GET /posts  
+[RESPONSE] 2024-03-01T00:47:22.636Z GET /posts [
+  {
+    id: 2,
+    title: 'DDDDDDD',
+    content: 'Remontada histórica',
+    featured_team: 'Bayern',
+    featured_player: 'Lewandowski',
+    related_match: 'Bayern-Chelsea',
+    tactics: '3-5-2',
+    highlighted_event: 'Lewandowski hat-trick',
+    banner: 'noche épica en Munich'
+  },
+  {
+    id: 3,
+    title: 'xx',
+    content: 'ed vs LOL',
+    featured_team: 'dededed',
+    featured_player: 'CR7',
+    related_match: 'deedededed-Madrid',
+    tactics: '4-3-3',
+    highlighted_event: 'NOO gol',
+    banner: 'https://st3.depositphotos.com/9880800/15061/i/450/depositphotos_150617400-stock-photo-soccer-ball-on-grass.jpg'
+  }
+]
+[RESPONSE] 2024-03-01T00:47:25.261Z GET /posts/3 
+[RESPONSE] 2024-03-01T00:47:25.263Z GET /posts {
+  id: 3,
+  title: 'xx',
+  content: 'ed vs LOL',
+  featured_team: 'dededed',
+  featured_player: 'CR7',
+  related_match: 'deedededed-Madrid',
+  tactics: '4-3-3',
+  highlighted_event: 'NOO gol',
+  banner: 'https://st3.depositphotos.com/9880800/15061/i/450/depositphotos_150617400-stock-photo-soccer-ball-on-grass.jpg'
+}
+[REQUEST] 2024-03-01T00:47:49.507Z DELETE /posts/3 {}
+[RESPONSE] 2024-03-01T00:47:49.524Z DELETE /posts/3 ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: '',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 0
+}
+[REQUEST] 2024-03-01T00:48:01.320Z GET /posts  
+[RESPONSE] 2024-03-01T00:48:01.321Z GET /posts [
+  {
+    id: 2,
+    title: 'DDDDDDD',
+    content: 'Remontada histórica',
+    featured_team: 'Bayern',
+    featured_player: 'Lewandowski',
+    related_match: 'Bayern-Chelsea',
+    tactics: '3-5-2',
+    highlighted_event: 'Lewandowski hat-trick',
+    banner: 'noche épica en Munich'
+  }
+]
+[REQUEST] 2024-03-01T00:48:06.702Z PUT /posts/2 {
+  title: 'deeede',
+  content: 'Remontada histórica',
+  featuredTeam: 'Bayern',
+  featuredPlayer: 'Lewandowski',
+  relatedMatch: 'Bayern-Chelsea',
+  tactics: '3-5-2',
+  highlightedEvent: 'Lewandowski hat-trick',
+  banner: 'noche épica en Munich'
+}
+[RESPONSE] 2024-03-01T00:48:06.709Z PUT /posts/2 ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+}

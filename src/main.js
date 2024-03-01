@@ -6,21 +6,30 @@ import {
   updatePost,
   deletePostById,
 } from './db.js'
+import {
+  logAPiRequest,
+  logAPiResponse,
+  logError,
+} from './log.js'
 
 const app = express()
 
 app.use(express.json())
 
 app.get('/posts', async (req, res) => {
+  logAPiRequest('GET', '/posts', ' ')
   try {
     const allPosts = await getAllPosts()
+    logAPiResponse('GET', '/posts', allPosts)
     return res.status(201).json(allPosts)
   } catch (error) {
+    logError(error)
     return res.status(500).json({ error: error.message })
   }
 })
 
 app.post('/posts', async (req, res) => {
+  logAPiRequest('POST', '/posts', req.body)
   const {
     title,
     content,
@@ -56,6 +65,7 @@ app.post('/posts', async (req, res) => {
       highlightedEvent,
       banner,
     )
+    logAPiResponse('POST', '/posts', result)
     return res.status(201).json(result)
   } catch (error) {
     return res.status(500).json({ error: error.message })
@@ -64,13 +74,15 @@ app.post('/posts', async (req, res) => {
 
 app.get('/posts/:postId', async (req, res) => {
   const postId = parseInt(req.params.postId, 10)
+  logAPiResponse('GET', `/posts/${postId}`, '')
   if (Number.isNaN(postId)) {
     return res.status(400).json({ error: 'Invalid post ID' })
   }
   try {
     const post = await getPostById(postId)
     if (post) {
-      return res.json(post)
+      logAPiResponse('GET', '/posts', post)
+      return res.status(201).json(post)
     }
     return res.status(404).json({ error: 'Post not found' })
   } catch (error) {
@@ -80,6 +92,7 @@ app.get('/posts/:postId', async (req, res) => {
 
 app.put('/posts/:postId', async (req, res) => {
   const postId = parseInt(req.params.postId, 10)
+  logAPiRequest('PUT', `/posts/${postId}`, req.body)
   const {
     title,
     content,
@@ -118,6 +131,7 @@ app.put('/posts/:postId', async (req, res) => {
       banner,
     )
     if (result.affectedRows > 0) {
+      logAPiResponse('PUT', `/posts/${postId}`, result)
       return res.status(200).json({ message: 'Post updated successfully' })
     }
     return res.status(404).json({ error: 'Post not found' })
@@ -128,12 +142,14 @@ app.put('/posts/:postId', async (req, res) => {
 
 app.delete('/posts/:postId', async (req, res) => {
   const postId = parseInt(req.params.postId, 10)
+  logAPiRequest('DELETE', `/posts/${postId}`, req.body)
   if (Number.isNaN(postId)) {
     return res.status(400).json({ error: 'Invalid post ID' })
   }
   try {
     const result = await deletePostById(postId)
     if (result.affectedRows > 0) {
+      logAPiResponse('DELETE', `/posts/${postId}`, result)
       return res.status(204).send()
     }
     return res.status(404).json({ error: 'Post not found' })
