@@ -184,6 +184,6 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint does not exist' })
 })
 
-const port = 5000
+const port = 22266
 app.listen(port, () => {
 })
