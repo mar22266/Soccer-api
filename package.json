@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/main.js >> log.txt 2>&1",
+    "start": "node src/main.js",
     "lint": "eslint src/*.js"
   },
   "author": "Andre",
